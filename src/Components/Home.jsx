@@ -100,7 +100,14 @@ const Home = () => {
           <div className="firstLine">
             <img src={leftArrow} alt="sss" className="arrowImage" />
             <p id="bubbleCreate">Hello {user.name}</p>
-            <img src={girl} alt="girl" />
+            <img
+              src={girl}
+              alt="girl"
+              onClick={() => {
+                Navigate("/Info");
+              }}
+              style={{ cursor: "pointer" }}
+            />
           </div>
 
           <div className="secondLine">

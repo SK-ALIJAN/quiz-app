@@ -12,6 +12,7 @@ const QuizInterface = ({ data }) => {
   let [marks, setMarks] = useState(0);
   let [wrongAnswer, setWrongAnswer] = useState(0);
   let [quizfinish, setQuizFinish] = useState(false);
+  let [countQuestions, setCountQuestions] = useState(0);
 
   let navigate = useNavigate();
   let { userScoreUpdate } = useContext(Context);
@@ -23,10 +24,39 @@ const QuizInterface = ({ data }) => {
     setCurrentQuiz(FilterQuestion);
     // Timer();
 
-    if (data.length == step) {
+    if (data.length === step) {
       setQuizFinish(true);
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-      userScoreUpdate({ points: marks },currentUser.id);
+
+      //  questions number
+      if (!currentUser.totalQuestion) {
+        currentUser.totalQuestion = countQuestions;
+      } else {
+        currentUser.totalQuestion = currentUser.totalQuestion + countQuestions;
+      }
+
+      //  total points
+      if (!currentUser.points) {
+        currentUser.points = marks * 10;
+      } else {
+        currentUser.points = currentUser.points + marks * 10;
+      }
+
+      // total right answer
+      if (!currentUser.rightAns) {
+        currentUser.rightAns = marks;
+      } else {
+        currentUser.rightAns = currentUser.rightAns + marks;
+      }
+      // total wrong answer
+      if (!currentUser.wrongAns) {
+        currentUser.wrongAns = wrongAnswer;
+      } else {
+        currentUser.wrongAns = currentUser.wrongAns + wrongAnswer;
+      }
+
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      // userScoreUpdate({ points: marks }, currentUser.id);
       setTimeout(() => {
         navigate("/");
       }, 3000);
@@ -64,6 +94,8 @@ const QuizInterface = ({ data }) => {
   //   console.log(countDown);
 
   let handleClick = (ClickedAnswer) => {
+    // track how many question touch
+    setCountQuestions((prev) => prev + 1);
     // check answer was right or not
     let answer = currentQuize[0].correct_answer === ClickedAnswer;
 
@@ -240,7 +272,7 @@ const QUIZ = styled.div`
     transform: translate(-50%);
     padding: 30px;
     border-radius: 31px;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 5px;
     padding-bottom: 40px;
   }
 

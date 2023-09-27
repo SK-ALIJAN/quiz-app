@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 let Context = createContext();
 
@@ -45,16 +45,16 @@ let ContextProvider = ({ children }) => {
     userSignUp: signup,
 
     userScoreUpdate: async (newData, id) => {
+      id = +id;
+      console.log(id);
       try {
-        let res = await fetch(`${UsersURL}/${id}`, {
+        let response = await fetch(`${UsersURL}/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          data: JSON.stringify(newData),
+          body: JSON.stringify(newData),
         });
-
-        let data = await res.json();
       } catch (error) {
         console.log(error);
       }
