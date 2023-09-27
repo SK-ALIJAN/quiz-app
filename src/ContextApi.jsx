@@ -45,16 +45,8 @@ let ContextProvider = ({ children }) => {
     userSignUp: signup,
 
     userScoreUpdate: async (newData, id) => {
-      id = +id;
-      console.log(id);
       try {
-        let response = await fetch(`${UsersURL}/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newData),
-        });
+        let data = await axios.patch(`${UsersURL}/${id}`, newData);
       } catch (error) {
         console.log(error);
       }

@@ -6,8 +6,10 @@ const QuizOption = ({ correct_answer, incorrect_answers, handleClick }) => {
   let AllOptions = [correct_answer, ...incorrect_answers];
   return (
     <DIV>
-      {AllOptions.map((ele) => {
-        return <>{<Option key={ele} ele={ele} handleClick={handleClick} />}</>;
+      {AllOptions.map((ele, index) => {
+        return (
+          <>{<Option key={index} ele={ele} handleClick={handleClick} />}</>
+        );
       })}
     </DIV>
   );
@@ -20,7 +22,7 @@ let DIV = styled.div`
   flex-direction: column;
   width: 90%;
   margin: auto;
-
+  padding-bottom:20px;
   div {
     margin-bottom: 20px;
     padding: 10px;

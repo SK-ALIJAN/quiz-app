@@ -7,11 +7,13 @@ import st from "../assets/setting.png";
 import pdf from "../assets/pdf.png";
 import share from "../assets/share.png";
 import play from "../assets/play.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { locationRoute } from "./Location";
 
 const UserInfo = () => {
   let [currentUser, setCurrentUser] = useState({});
   let navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("currentUser"));
@@ -22,7 +24,15 @@ const UserInfo = () => {
     <>
       <WRAPPER>
         <div className="firstLine">
-          <img src={leftArrow} alt="sss" className="arrowImage" />
+          <img
+            src={leftArrow}
+            alt="sss"
+            className="arrowImage"
+            onClick={() => {
+              let router = localStorage.getItem("location");
+              navigate(router);
+            }}
+          />
         </div>
 
         <div id="bubbleCreate">
@@ -76,6 +86,7 @@ const UserInfo = () => {
         <div id="dt">
           <div
             onClick={() => {
+              locationRoute(location.pathname);
               navigate("/");
             }}
           >
@@ -96,6 +107,7 @@ const UserInfo = () => {
           </div>
           <div
             onClick={() => {
+              locationRoute(location.pathname);
               navigate("/");
             }}
           >
@@ -104,6 +116,7 @@ const UserInfo = () => {
           </div>
           <div
             onClick={() => {
+              locationRoute(location.pathname);
               navigate("/leaderboard");
             }}
           >

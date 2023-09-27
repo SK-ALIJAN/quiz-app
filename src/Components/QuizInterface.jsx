@@ -3,8 +3,9 @@ import styled from "styled-components";
 import leftArrow from "../assets/HomepageArrow.png";
 import vector from "../assets/Vector.png";
 import QuizOption from "./QuizOption";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Context } from "../ContextApi";
+import { locationRoute } from "./Location";
 
 const QuizInterface = ({ data }) => {
   let [step, setStep] = useState(1);
@@ -15,6 +16,7 @@ const QuizInterface = ({ data }) => {
   let [countQuestions, setCountQuestions] = useState(0);
 
   let navigate = useNavigate();
+  let location = useLocation();
   let { userScoreUpdate } = useContext(Context);
 
   useEffect(() => {
@@ -56,8 +58,10 @@ const QuizInterface = ({ data }) => {
       }
 
       localStorage.setItem("currentUser", JSON.stringify(currentUser));
-      // userScoreUpdate({ points: marks }, currentUser.id);
+      let obj = { points: marks * 10 };
+      userScoreUpdate(obj, Number(currentUser.id));
       setTimeout(() => {
+        locationRoute(location.pathname);
         navigate("/");
       }, 3000);
     }
@@ -77,28 +81,11 @@ const QuizInterface = ({ data }) => {
     }; // cleanup function
   }, [step]);
 
-  //   let Timer = () => {
-  //     let id = setInterval(() => {
-  //       if (countDown === 0) {
-  //         setCountDown(20);
-  //       } else {
-  //         setCountDown((prev) => prev - 1);
-  //       }
-  //     }, 1000);
-
-  //     return () => {
-  //       clearInterval(id);
-  //     }; // cleanup function
-  //   };
-
-  //   console.log(countDown);
-
   let handleClick = (ClickedAnswer) => {
     // track how many question touch
     setCountQuestions((prev) => prev + 1);
     // check answer was right or not
     let answer = currentQuize[0].correct_answer === ClickedAnswer;
-
     // increment scrore
     if (answer) {
       setMarks((prev) => prev + 1);
@@ -119,7 +106,15 @@ const QuizInterface = ({ data }) => {
     <>
       <WRAPPER>
         <div className="firstLine">
-          <img src={leftArrow} alt="sss" className="arrowImage" />
+          <img
+            src={leftArrow}
+            alt="sss"
+            className="arrowImage"
+            onClick={() => {
+              let router = localStorage.getItem("location");
+              navigate(router);
+            }}
+          />
           <img src={vector} alt="" className="arrowImage" />
         </div>
 
@@ -140,7 +135,7 @@ const QuizInterface = ({ data }) => {
             </div>
 
             <div className="Timer">
-              <div></div>
+              <div>{marks * 10}</div>
             </div>
 
             <div className="red">
@@ -194,7 +189,7 @@ const QuizInterface = ({ data }) => {
 export default QuizInterface;
 
 const WRAPPER = styled.div`
-  height: 50vh;
+  height: 40vh;
   background-color: #ffc102;
   padding: 2rem;
   border-bottom-left-radius: 21%;
@@ -315,6 +310,8 @@ const QUIZ = styled.div`
     height: 3.5rem;
     border: 2px solid #ffc102;
     border-radius: 100%;
+    display: grid;
+    place-content: center;
   }
 
   .red {

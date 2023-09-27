@@ -1,19 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../ContextApi";
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import leftArrow from "../assets/HomepageArrow.png";
 import girl from "../assets/girl.png";
 import Space from "../assets/Space.png";
 import history from "../assets/History.png";
 import Sports from "../assets/Sports.png";
-// import world from "../assets/worldwide.png";
-// import politics from "../assets/politics.png";
-// import art from "../assets/art.png";
-// import actor from "../assets/actor.png";
-// import lion from "../assets/lion.png";
-// import desktop from "../assets/desktop.png";
-// import film from "../assets/film.png";
+import { locationRoute } from "./Location";
 
 const AllCategory = [
   {
@@ -73,6 +67,7 @@ const Home = () => {
   let [user, setUser] = useState({});
   let { quiz } = useContext(Context);
   let Navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("currentUser"));
@@ -82,14 +77,17 @@ const Home = () => {
   // some hard coded data
   let handleSpace = () => {
     quiz(17);
+    locationRoute(location.pathname);
     Navigate("/quiz");
   };
   let handleHistory = () => {
     quiz(23);
+    locationRoute(location.pathname);
     Navigate("/quiz");
   };
   let handleSports = () => {
     quiz(21);
+    locationRoute(location.pathname);
     Navigate("/quiz");
   };
 
@@ -167,6 +165,8 @@ export default Home;
 const WRAPPER = styled.div`
   .Heading {
     background-color: #ffc102;
+    border-bottom-left-radius: 31px;
+    border-bottom-right-radius: 31px;
     padding: 2rem;
   }
   .firstLine {
@@ -257,6 +257,22 @@ const WRAPPER = styled.div`
   .secondLine-child:hover {
     background-color: #ffffffbf;
   }
+
+  @media screen and (max-width: 700px) {
+    #bubbleCreate::after {
+      width: 0.2rem;
+      height: 0.2rem;
+      padding: 1rem;
+    }
+    .popular::before {
+      width: 0.2rem;
+      height: 0.2rem;
+      left: -16%;
+    }
+    .secondLine-child {
+      padding: 20px 20px;
+    }
+  }
 `;
 
 const CATEGORY = styled.div`
@@ -299,5 +315,11 @@ const CATEGORY = styled.div`
   .allCategory > div p {
     font-weight: 600;
     margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: 700px) {
+    .allCategory {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 `;
