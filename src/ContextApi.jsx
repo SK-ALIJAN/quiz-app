@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import axios, { Axios } from "axios";
 
 let Context = createContext();
 
@@ -13,11 +14,10 @@ let ContextProvider = ({ children }) => {
     quiz: async (categoryResponse) => {
       let url = `https://opentdb.com/api.php?amount=10&category=${categoryResponse}&difficulty=easy&type=multiple`;
       try {
-        let response = await fetch(url);
-        let data = await response.json();
-        setQuizData(data.results);
+        let response = await axios(url);
+        setQuizData(response.data.results);
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
     },
 
@@ -43,6 +43,22 @@ let ContextProvider = ({ children }) => {
     },
 
     userSignUp: signup,
+
+    userScoreUpdate: async (newData, id) => {
+      try {
+        let res = await fetch(`${UsersURL}/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(newData),
+        });
+
+        let data = await res.json();
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     GetAllUserData: async () => {
       try {
