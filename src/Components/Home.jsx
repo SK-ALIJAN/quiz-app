@@ -102,6 +102,7 @@ const Home = () => {
               src={girl}
               alt="girl"
               onClick={() => {
+                locationRoute(location.pathname);
                 Navigate("/Info");
               }}
               style={{ cursor: "pointer" }}
@@ -146,6 +147,7 @@ const Home = () => {
                 key={ele.name}
                 onClick={() => {
                   quiz(ele.code);
+                  locationRoute(location.pathname);
                   Navigate("/quiz");
                 }}
               >
@@ -320,6 +322,15 @@ const CATEGORY = styled.div`
   @media screen and (max-width: 700px) {
     .allCategory {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .allCategory {
+      grid-template-columns: repeat(3, 1fr);
+      font-size: 0.7rem;
+    }
+    .allCategory > div {
+      padding: 10px;
     }
   }
 `;

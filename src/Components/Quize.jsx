@@ -7,10 +7,9 @@ const Quize = () => {
   let { data } = useContext(Context);
   let [quiz, setQuiz] = useState([]);
 
-
   useEffect(() => {
-    let datas = JSON.parse(localStorage.getItem("quiz")) || [];
-    setQuiz(datas);   // bugs here
+    let datas = JSON.parse(localStorage.getItem("quiz"));
+    setQuiz(datas);
     if (data.length !== 0) {
       localStorage.setItem("quiz", JSON.stringify(data));
       setQuiz(data);

@@ -16,6 +16,8 @@ let ContextProvider = ({ children }) => {
       try {
         let response = await axios(url);
         setQuizData(response.data.results);
+
+        console.log(response.data.results);
       } catch (error) {
         console.log(error);
       }
