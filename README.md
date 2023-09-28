@@ -8,7 +8,10 @@ I've build this quiz app in 2 days , it's basically a company assignment , in th
 Figma sheet link:-
 # (https://www.figma.com/file/UNJkEC4fco33vG0d08KKCi/Quiz-App?type=design&node-id=133-44&mode=design&t=MBDXAUZm1uNAzw4x-0)
 
+Api:-
+# https://opentdb.com/api_config.php
 ****************************************************************************************
+
 Deployed link:-
 # (https://quiz-app-alijan.vercel.app/)
 
