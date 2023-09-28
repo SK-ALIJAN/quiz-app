@@ -3,6 +3,11 @@
 I've build this quiz app in 2 days , it's basically a company assignment , in this app you can find lots category , according to that you get some points , you can see leadderboard also  <br><br>
 <p align="center"><img src="https://github.com/SK-ALIJAN/quiz-app/assets/106768235/719d3e31-c377-42de-8cca-96da61107e18"></p> 
 
+****************************************************************************************
+
+Deployed link:-
+# (https://quiz-app-alijan.vercel.app/)
+
 
 ****************************************************************************************
 Figma sheet link:-
@@ -10,11 +15,6 @@ Figma sheet link:-
 
 Api:-
 # https://opentdb.com/api_config.php
-****************************************************************************************
-
-Deployed link:-
-# (https://quiz-app-alijan.vercel.app/)
-
 ****************************************************************************************
 
 # Tech-Stack Used:-
