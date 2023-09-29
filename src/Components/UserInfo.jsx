@@ -61,7 +61,9 @@ const UserInfo = () => {
             <p>
               {Object.keys(currentUser).length === 0
                 ? ""
-                : currentUser.totalQuestion}
+                : currentUser.totalQuestion
+                ? currentUser.totalQuestion
+                : "Not attempt"}
             </p>
             <p>Total Questions</p>
           </div>
@@ -69,7 +71,9 @@ const UserInfo = () => {
             <p>
               {Object.keys(currentUser).length === 0
                 ? ""
-                : currentUser.rightAns}
+                : currentUser.rightAns
+                ? currentUser.rightAns
+                : "0"}
             </p>
             <p>Carrect</p>
           </div>
@@ -77,7 +81,9 @@ const UserInfo = () => {
             <p>
               {Object.keys(currentUser).length === 0
                 ? ""
-                : currentUser.wrongAns}
+                : currentUser.wrongAns
+                ? currentUser.wrongAns
+                : "0"}
             </p>
             <p>Wrong</p>
           </div>
