@@ -5,23 +5,21 @@ import QuizInterface from "./QuizInterface";
 
 const Quize = () => {
   let { data } = useContext(Context);
-  let [quiz, setQuiz] = useState([]);
+  let [retriveData, setRetriveData] = useState(data);
 
   useEffect(() => {
-    let datas = JSON.parse(localStorage.getItem("quiz"));
-    setQuiz(datas);
-    if (data.length !== 0) {
-      localStorage.setItem("quiz", JSON.stringify(data));
-      setQuiz(data);
+    if (retriveData.length === 0) {
+      let data = JSON.parse(localStorage.getItem("quiz"));
+      setRetriveData(data);
     }
-  }, [data]);
+  }, [retriveData]);
 
   return (
     <>
-      {quiz.length === 0 ? (
+      {retriveData.length === 0 ? (
         <LOADER className="loader"></LOADER>
       ) : (
-        <QuizInterface data={quiz} />
+        <QuizInterface data={retriveData} />
       )}
     </>
   );

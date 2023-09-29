@@ -5,9 +5,8 @@ let Context = createContext();
 
 // all the users who participant in quize
 let UsersURL = `https://651296deb8c6ce52b395d9db.mockapi.io/users`;
-
+let quizData=[];
 let ContextProvider = ({ children }) => {
-  let [quizData, setQuizData] = useState([]);
   let [signup, setSignUp] = useState(localStorage.getItem("signup") || false);
 
   let config = {
@@ -15,16 +14,14 @@ let ContextProvider = ({ children }) => {
       let url = `https://opentdb.com/api.php?amount=10&category=${categoryResponse}&difficulty=easy&type=multiple`;
       try {
         let response = await axios(url);
-        setQuizData(response.data.results);
-
-        console.log(response.data.results);
+        localStorage.setItem("quiz", JSON.stringify(response.data.results));
+       quizData=response.data.results;
       } catch (error) {
         console.log(error);
       }
     },
 
     data: quizData,
-
     UserData: async (newUserData) => {
       try {
         let response = await fetch(`${UsersURL}`, {
